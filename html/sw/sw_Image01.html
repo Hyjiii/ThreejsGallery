@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>상세페이지</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/product/">
+    <!-- Bootstrap core CSS -->
+    <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+    
+     
+    .col-1{
+      width: 500px;
+      height: 700px;
+      margin-left: 2%;
+      margin-bottom: 5%;
+      margin-top: 2%;
+      margin-right: 5%;
+      position: absolute;
+    }
+    
+
+
+     
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/info.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <header class="site-header sticky-top py-1">
+      <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="#" aria-label="Product">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+        </a>
+        <a class="py-2 d-none d-md-inline-block" href="#">NEXT</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="position-relativ eoverflow-visible p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-1" style="z-index:2;">
+            <!-- <img src="../../image/sw/swimage01.png" class="rounded float-start img-fluid" style=" height: 100%; width: 100%;" /> -->
+        </div>
+        
+        <div class="col-md-12 p-lg-3 mx-auto my-5" style="z-index: 1;">
+          <div>
+            <br>
+            <p class="lead fw-bold" style="font-size:40px;">"처방전 인식 의료 정보 제공 서비스"</p>
+            <hr>
+            <h1 class="fw-bold">* 개발 목적</h1>
+            <span class="fw-bold" style="font-size:30px;">
+              현재 대한민국에서 일반인은 상용 의약품을 제외한 전문 의약품은 <br>
+              의료업 종사자(면허 소지자)에게 처방전을 받아야만 구매할 수 있다.<br>
+              이러한 시스템은 사용자들에게 전문가의 설명이 없다면 <br>
+              본인이 처방받은 의약품이 어떠한 작용을 하는지 알 수 없다는 단점이 생기며, <br>
+              자동 제약 기술의 발전을 제한한다. 이를 해결하기 위하여 본래 시스템을 최대한 해치지 않으며 <br>
+              사용자에게는 더욱 편하고 신뢰성 있는 정보를 제공하고자 본 프로젝트를 진행한다.
+              <br></span>
+            <br>
+            <h1 class="fw-bold">* 작품 설명</h1>
+            <span class="fw-bold" style="font-size:30px;">
+              처방전을 인식하여 OCR을 진행하고 환자에게는 의약품 정보를 출력하는 서비스를 제공하고,<br>의료업 종사자들에게는 자동 제약 기술에 활용할 수 있는 서비스를 제공한다.<br>
+              - 처방전을 입력 이미지로 받아 CNN을 이용한 Text Detection(Object Detection)과 <br>Text Classifier(Image Classifier)를 차례로 진행하여 OCR 기능을 수행한다.<br>
+              - 로그인 및 회원가입 기능을 위한 Database를 설계하고, HTTP 통신을 위한 함수를 개발한다.<br>
+              - 유저 인터페이스를 위한 클라이언트를 제작한다.<br>
+              현재 개발한 클라이언트는 안드로이드 어플리케이션을 바탕으로 동작하며
+              로그인, 회원가입, <br>처방전 사진 촬영, 사용 내역 저장, 불러오기를 지원하며 의약품별 정보제공을 위한 웹 뷰어 역할도 수행한다.
+            </span>
+          </div>
+        </div>
+      <div>
+    </main>
+
+
+    <footer></footer>
+    <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

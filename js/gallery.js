@@ -19,28 +19,28 @@ const sw_work = [
         link: "../html/sw/sw_3Dimage01.html",
     },
     {
-        image: "../image/sw/swimage02.png",
-        link: "http://google.com",
+        image: "../image/sw/swimage02-2.png",
+        link: "../html/sw/sw_3Dimage02.html",
     },
     {
         image: "../image/sw/swimage03.png",
-        link: "http://google.com",
+        link: "../html/sw/sw_3Dimage03.html",
     },
     {
         image: "../image/sw/swimage04.png",
-        link: "http://google.com",
+        link: "../html/sw/sw_3Dimage04.html",
     },
     {
         image: "../image/sw/swimage05.png",
-        link: "http://google.com",
+        link: "../html/sw/sw_3Dimage05.html",
     },
     {
         image: "../image/sw/swimage06.png",
-        link: "http://google.com",
+        link: "../html/sw/sw_3Dimage06.html",
     },
     {
         image: "../image/sw/swimage07.png",
-        link: "http://google.com",
+        link: "../html/sw/sw_3Dimage07.html",
     },
 ];
 const hw_work = [
@@ -166,7 +166,7 @@ const init = () => {
 
     controls = new OrbitControls(camera, renderer.domElement);
     controls.maxDistance = 1000;
-    controls.keyPanSpeed = 200;
+    controls.keyPanSpeed = 40;
 
     {
         //가벽 만들기
@@ -377,13 +377,35 @@ const onDocumentMouseDown = (event) => {
         if (intersects[1] != null) {
             const item = intersects[0].object;
             const itemName = item.name;
-            window.open(item.link, "_blank");
+            window.open(item.link, "_parent");
+            // location.href=item.link;
             // console.log(item.link);
             controls.reset(controls.saveState());
         } else if (intersects2[1] != null) {
             const item2 = intersects2[0].object;
-            window.open(item2.link, "_blank");
-            controls.reset(controls.saveState());
+            // window.open(item2.link, "_blank");
+            // controls.reset(controls.saveState());
+            // location.href=item2.link;
+            controls.saveState();
+        }
+    }
+};
+window.onpageshow = function (event) {
+    // 새로고침: window.performance.navigation.type == 1
+    // 뒤로가기: window.performance.navigation.type == 2
+    if (
+        event.persisted ||
+        (window.performance &&
+            (window.performance.navigation.type == 1 ||
+                window.performance.navigation.type == 2))
+    ) {
+        // 현재 브라우저에서 WebStorage를 지원할 때
+        if ("sessionStorage" in window && window["sessionStorage"] !== null) {
+            // sessionStorage로 데이터 다시 불러오기
+            if (sessionStorage.getItem("DATA")) {
+                input_text.value = sessionStorage.getItem("DATA");
+                controls.reset(cnotrols.saveState());
+            }
         }
     }
 };

@@ -1,8 +1,8 @@
 import * as THREE from "https://unpkg.com/three@0.108.0/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.108.0/examples/jsm/controls/OrbitControls.js";
 import { FBXLoader } from "https://unpkg.com/three@0.108.0/examples/jsm/loaders/FBXLoader.js";
-import { FontLoader } from "../loaders/FontLoader.js";
-import { TextGeometry } from "../geometries/TextGeometry.js";
+import { FontLoader } from "../../loaders/FontLoader.js";
+import { TextGeometry } from "../../geometries/TextGeometry.js";
 
 let WIDTH = window.innerWidth;
 let HEIGHT = window.innerHeight;
@@ -22,7 +22,7 @@ const init = () => {
     scene = new THREE.Scene();
     scene.background = new THREE.Color("#eee"); //배경 컬러
     camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000);
-    camera.position.set(0, 30, 0);
+    camera.position.set(0, 40, -20);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(WIDTH, HEIGHT);
@@ -44,16 +44,14 @@ const init = () => {
     boxMesh.receiveShadow = true;
     scene.add(boxMesh);
 
-    const geometry1 = new THREE.BoxGeometry(80, 100, 1);
+    const geometry1 = new THREE.BoxGeometry(60, 70, 1);
     const loader = new THREE.TextureLoader();
 
-    const material1 = new THREE.MeshBasicMaterial({
-            map: loader.load("../../image/sw/swimage01.png"),
-        }),
-        cube = new THREE.Mesh(geometry1, material1);
-    cube.position.set(0, 30, -100);
+    const material1 = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swimage05.png"),}),
+    cube = new THREE.Mesh(geometry1, material1);
+    cube.position.set(0, 45, -100);
     scene.add(cube);
-
+    
     {
         //조명 넣기
         var light = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
@@ -84,29 +82,25 @@ const init = () => {
     }
 
     const infogeometry = new THREE.BoxGeometry(60, 40, 3);
-    const infomaterial = new THREE.MeshBasicMaterial({
-            map: loader.load("../../image/sw/swinfoimage01.png"),
-        }),
-        info = new THREE.Mesh(infogeometry, infomaterial);
-    info.position.set(-22, 30, -285);
+    const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swinfoimage05.png"), outline:true}),
+    info = new THREE.Mesh(infogeometry, infomaterial);
+    info.position.set(-22, 42, -285);
     info.castShadow = true;
     info.receiveShadow = true;
     info.rotateY(0.11);
     scene.add(info);
 
-    // fbxLoadFunc("../../image/DismissingGesture.FBX", "mixamo.com", 12, 0, -300);
-
     const fontLoader = new FontLoader();
     fontLoader.load("../../font/Do Hyeon_Regular.json", (font) => {
-        const geometry = new TextGeometry("오늘\n" + "뭐" + "먹지?", {
+        const geometry = new TextGeometry("펫플러스", {
             font: font,
             size: 10,
             height: 1,
         });
         const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const font3d = new THREE.Mesh(geometry, material);
-        font3d.position.set(32, 32, -300);
-
+        font3d.position.set(32,28,-300);
+    
         font3d.castShadow = true;
         font3d.receiveShadow = true;
         font3d.rotateY(-0.11);
@@ -114,15 +108,8 @@ const init = () => {
     });
 };
 
-const clock = new THREE.Clock();
-
 const animate = () => {
     //controls.update();
-    const delta = clock.getDelta();
-    // console.log(delta);
-    for (let i = 0; i < mixers.length; i++) {
-        mixers[i].update(delta);
-    }
 
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
@@ -148,7 +135,7 @@ let moveNum = 0;
 
 button.addEventListener("click", () => {
     if (camera.position.z == -240) {
-        moveNum = 0;
+        moveNum = -20;
     } else {
         moveNum = -240;
     }
