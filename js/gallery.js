@@ -377,14 +377,14 @@ const onDocumentMouseDown = (event) => {
         if (intersects[1] != null) {
             const item = intersects[0].object;
             const itemName = item.name;
-            window.open(item.link, "_parent");
+            window.open(item.link, "_blank");
             // location.href=item.link;
             // console.log(item.link);
             controls.reset(controls.saveState());
         } else if (intersects2[1] != null) {
             const item2 = intersects2[0].object;
-            // window.open(item2.link, "_blank");
-            // controls.reset(controls.saveState());
+            window.open(item2.link, "_blank");
+            controls.reset(controls.saveState());
             // location.href=item2.link;
             controls.saveState();
         }
