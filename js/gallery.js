@@ -283,7 +283,7 @@ const addBox = (i) => {
     let x = -(wallWidth / 2) + (i + 1) * distance;
     // let x = (wallWidth/workArr.length)*i
     console.log(x);
-    let y = 8; //Math.random() * 40 - 5;
+    let y = 12; //Math.random() * 40 - 5;
     let z = 0;
     boxMesh.position.set(x, y, -wallWidth2 / 2 + 2);
     boxMesh.name = "workofArt_${i}";
@@ -292,7 +292,7 @@ const addBox = (i) => {
 
     //조명 넣기
     const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.position.set(x, 60, 12 - wallWidth2 / 2 + 20);
+    spotLight.position.set(x, 63, 12 - wallWidth2 / 2 + 20);
     spotLight.angle = Math.PI / 4.5; //조명 범위
     spotLight.penumbra = 0.1; //조명 경계 정도
     spotLight.decay = 1.2; //조명 투명도
@@ -312,7 +312,7 @@ const addBox2 = (i) => {
     const boxMesh2 = new THREE.Mesh(geometry2, material2);
     boxMesh2.castShadow = true;
     let x = -(wallWidth2 / 2) + (i + 1) * distance;
-    let y = 8; //Math.random() * 40 - 5;
+    let y = 12; //Math.random() * 40 - 5;
     let z = 0;
     boxMesh2.position.set(-wallWidth / 2 + 2, y, x);
     boxMesh2.name = "workofArt_${i}";
@@ -320,7 +320,7 @@ const addBox2 = (i) => {
     galleryGroup2.add(boxMesh2);
 
     const spotLight2 = new THREE.SpotLight(0xffffff, 1);
-    spotLight2.position.set(12 - wallWidth / 2 + 20, 50, x);
+    spotLight2.position.set(12 - wallWidth / 2 + 20, 55, x);
     spotLight2.angle = Math.PI / 4; //조명 범위
     spotLight2.penumbra = 0.1; //조명 경계 정도
     spotLight2.decay = 1.2; //조명 투명도
