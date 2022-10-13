@@ -1,6 +1,5 @@
 import * as THREE from "https://unpkg.com/three@0.108.0/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.108.0/examples/jsm/controls/OrbitControls.js";
-import { FBXLoader } from "https://unpkg.com/three@0.108.0/examples/jsm/loaders/FBXLoader.js";
 import { FontLoader } from "../../loaders/FontLoader.js";
 import { TextGeometry } from "../../geometries/TextGeometry.js";
 
@@ -8,15 +7,8 @@ let WIDTH = window.innerWidth;
 let HEIGHT = window.innerHeight;
 
 let scene, camera, renderer;
-let controls;
 
-let model = new THREE.Object3D();
-let mixers = [];
-
-//샘플 3d 모델링 다운로드
-//1. https://www.mixamo.com/
-//2. https://free3d.com/ko/3d-models/fbx
-//3. https://www.turbosquid.com/
+let infogroup = new THREE.Group();
 
 const init = () => {
     scene = new THREE.Scene();
@@ -81,14 +73,37 @@ const init = () => {
         scene.fog = new THREE.Fog(color, near, far);
     }
 
-    const infogeometry = new THREE.BoxGeometry(60, 40, 3);
+    const infogeometry = new THREE.BoxGeometry(60, 40, 1);
     const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swinfoimage02.png"), outline:true}),
     info = new THREE.Mesh(infogeometry, infomaterial);
     info.position.set(-22, 42, -285);
     info.castShadow = true;
     info.receiveShadow = true;
-    info.rotateY(0.11);
-    scene.add(info);
+    infogroup.add(info);
+
+    const outlinegeo1 = new THREE.BoxGeometry(62.6,0.8,1)
+    const outlinegeo2 = new THREE.BoxGeometry(0,46.7,0.2) //45.1
+    const outlinegeo4 = new THREE.BoxGeometry(0,47.1,1)
+    const outmaterial = new THREE.MeshBasicMaterial({ color: 0x00095E });
+    // const outmaterial2 = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    const outline1 = new THREE.Mesh(outlinegeo1, outmaterial);
+    const outline2 = new THREE.Mesh(outlinegeo2, outmaterial);
+    const outline3 = new THREE.Mesh(outlinegeo1, outmaterial);
+    const outline4 = new THREE.Mesh(outlinegeo4, outmaterial);
+
+    outline1.position.set(-22,63,-285);
+    outline2.position.set(-52.8,39.85,-284.6); //40.85
+    outline3.position.set(-22,21,-285);
+    outline4.position.set(8.9,39.85,-285);
+    
+    infogroup.add(outline1);
+    infogroup.add(outline2);
+    infogroup.add(outline3);
+    infogroup.add(outline4);
+    scene.add(infogroup);
+
+    infogroup.rotateY(0.11);
+    infogroup.position.set(35,0,0)
 
     const fontLoader = new FontLoader();
     fontLoader.load("../../font/Do Hyeon_Regular.json", (font) => {
