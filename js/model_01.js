@@ -47,11 +47,13 @@ const init = () => {
     const geometry1 = new THREE.BoxGeometry(80, 100, 1);
     const loader = new THREE.TextureLoader();
 
-    const material1 = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swimage01.png"),}),
-    cube = new THREE.Mesh(geometry1, material1);
-    cube.position.set(0, 40, -100);
+    const material1 = new THREE.MeshBasicMaterial({
+            map: loader.load("../../image/sw/swimage01.png"),
+        }),
+        cube = new THREE.Mesh(geometry1, material1);
+    cube.position.set(0, 30, -100);
     scene.add(cube);
-    
+
     {
         //조명 넣기
         var light = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
@@ -82,9 +84,11 @@ const init = () => {
     }
 
     const infogeometry = new THREE.BoxGeometry(60, 40, 3);
-    const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swinfoimage01.png"),}),
-    info = new THREE.Mesh(infogeometry, infomaterial);
-    info.position.set(-22, 42, -285);
+    const infomaterial = new THREE.MeshBasicMaterial({
+            map: loader.load("../../image/sw/swinfoimage01.png"),
+        }),
+        info = new THREE.Mesh(infogeometry, infomaterial);
+    info.position.set(-22, 30, -285);
     info.castShadow = true;
     info.receiveShadow = true;
     info.rotateY(0.11);
@@ -94,15 +98,15 @@ const init = () => {
 
     const fontLoader = new FontLoader();
     fontLoader.load("../../font/Do Hyeon_Regular.json", (font) => {
-        const geometry = new TextGeometry("오늘\n"+"뭐"+"먹지?", {
+        const geometry = new TextGeometry("오늘\n" + "뭐" + "먹지?", {
             font: font,
             size: 10,
             height: 1,
         });
         const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const font3d = new THREE.Mesh(geometry, material);
-        font3d.position.set(32,35,-300);
-    
+        font3d.position.set(32, 32, -300);
+
         font3d.castShadow = true;
         font3d.receiveShadow = true;
         font3d.rotateY(-0.11);
@@ -110,57 +114,6 @@ const init = () => {
     });
 };
 
-const fbxLoadFunc = (modelName, animationName, ...pos) => {
-    const fbxLoader = new FBXLoader();
-    fbxLoader.load(
-        modelName,
-        (object) => {
-            // console.log(object);
-
-            object.traverse(function (child) {
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            //애니메이션
-            if (object.animations != undefined) {
-                object.mixer = new THREE.AnimationMixer(object);
-                const clips = object.animations;
-                // console.log(clips);
-
-                mixers.push(object.mixer);
-                // console.log(mixers.length);
-
-                if (mixers.length > 0) {
-                    // console.log(object.animations);
-                    const clip = THREE.AnimationClip.findByName(
-                        clips,
-                        animationName
-                    );
-                    let action = object.mixer.clipAction(clip);
-                    // var action = object.mixer.clipAction(object.animations[0]);
-                    action.play();
-                }
-            }
-
-            //크기 조절
-            let scaleNum = 0.3;
-            object.scale.set(scaleNum, scaleNum, scaleNum);
-
-            object.position.set(...pos);
-            model.add(object);
-            scene.add(model);
-        },
-        (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-        },
-        (error) => {
-            console.log(error);
-        }
-    );
-};
 const clock = new THREE.Clock();
 
 const animate = () => {

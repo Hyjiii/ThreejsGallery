@@ -16,69 +16,69 @@ let galleryGroup2 = new THREE.Group();
 const sw_work = [
     {
         image: "../image/sw/swimage01.png",
-        link: "../html/sw/sw_3Dimage01.html"
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage02.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/sw/swimage03.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/sw/swimage04.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/sw/swimage05.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/sw/swimage06.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/sw/swimage07.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
 ];
 const hw_work = [
     {
         image: "../image/hw/hwimage01.png",
-        link: "../html/hw_Image01.html"
+        link: "../html/hw/hw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage02.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage03.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage04.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage05.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage06.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage07.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage08.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
     {
         image: "../image/hw/hwimage09.png",
-        link: "http://google.com"
+        link: "http://google.com",
     },
 ];
 
@@ -152,11 +152,11 @@ const init = () => {
 
     //조명 넣기
     var light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.45);
-    light.position.set(0, 80, -50);
+    light.position.set(0, 90, -50);
     scene.add(light);
 
     var light2 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.45);
-    light2.position.set(-50, 80, 0);
+    light2.position.set(-50, 90, 0);
     scene.add(light2);
 
     // const helper = new THREE.HemisphereLightHelper( light, 5 );
@@ -179,7 +179,7 @@ const init = () => {
 
         imageMap.repeat.set(10, 4);
 
-        const geometry = new THREE.BoxGeometry(wallWidth + 2, 150, 2); //x,y,z(두께)
+        const geometry = new THREE.BoxGeometry(wallWidth + 2, 220, 2); //x,y,z(두께)
         const material = new THREE.MeshPhongMaterial({
             color: 0x6b6b6b,
             transparent: true,
@@ -194,7 +194,7 @@ const init = () => {
         galleryGroup.add(wallMesh);
         scene.add(galleryGroup);
 
-        const geometry2 = new THREE.BoxGeometry(2, 150, wallWidth2);
+        const geometry2 = new THREE.BoxGeometry(2, 220, wallWidth2);
         const wallMesh2 = new THREE.Mesh(geometry2, material);
         wallMesh2.position.set(-wallWidth / 2, 0, 0);
         //액자 시작 x축 원점(제어유용), 두께가 2니까 뒤로 좀 빼줌
@@ -250,7 +250,7 @@ const init = () => {
         });
         const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const swfont = new THREE.Mesh(geometry, material);
-        swfont.position.set(-wallWidth / 2 + 40, 40, -wallWidth2 / 2 + 15);
+        swfont.position.set(-wallWidth / 2 + 40, 70, -wallWidth2 / 2 + 15);
         swfont.outline = true;
         swfont.castShadow = true;
         swfont.receiveShadow = true;
@@ -264,7 +264,7 @@ const init = () => {
         });
         const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const hwfont = new THREE.Mesh(geometry, material);
-        hwfont.position.set(-wallWidth / 2 + 15, 40, -wallWidth2 / 2 + 40);
+        hwfont.position.set(-wallWidth / 2 + 15, 70, -wallWidth2 / 2 + 40);
         hwfont.rotateY(29.85);
         hwfont.castShadow = true;
         hwfont.receiveShadow = true;
@@ -276,7 +276,7 @@ const init = () => {
 const addBox = (i) => {
     const imageMap = new THREE.TextureLoader().load(sw_work[i].image);
     console.log(imageMap);
-    const geometry = new THREE.BoxGeometry(40, 50, 2);
+    const geometry = new THREE.BoxGeometry(45, 55, 2);
     const material = new THREE.MeshPhongMaterial({ map: imageMap });
     const boxMesh = new THREE.Mesh(geometry, material);
     boxMesh.castShadow = true;
@@ -292,7 +292,7 @@ const addBox = (i) => {
 
     //조명 넣기
     const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.position.set(x, 55, 12 - wallWidth2 / 2 + 20);
+    spotLight.position.set(x, 60, 12 - wallWidth2 / 2 + 20);
     spotLight.angle = Math.PI / 4.5; //조명 범위
     spotLight.penumbra = 0.1; //조명 경계 정도
     spotLight.decay = 1.2; //조명 투명도
@@ -307,7 +307,7 @@ const addBox = (i) => {
 };
 const addBox2 = (i) => {
     const imageMap2 = new THREE.TextureLoader().load(hw_work[i].image);
-    const geometry2 = new THREE.BoxGeometry(2, 35, 52);
+    const geometry2 = new THREE.BoxGeometry(2, 40, 60);
     const material2 = new THREE.MeshPhongMaterial({ map: imageMap2 });
     const boxMesh2 = new THREE.Mesh(geometry2, material2);
     boxMesh2.castShadow = true;
@@ -320,7 +320,7 @@ const addBox2 = (i) => {
     galleryGroup2.add(boxMesh2);
 
     const spotLight2 = new THREE.SpotLight(0xffffff, 1);
-    spotLight2.position.set(12 - wallWidth / 2 + 20, 45, x);
+    spotLight2.position.set(12 - wallWidth / 2 + 20, 50, x);
     spotLight2.angle = Math.PI / 4; //조명 범위
     spotLight2.penumbra = 0.1; //조명 경계 정도
     spotLight2.decay = 1.2; //조명 투명도
