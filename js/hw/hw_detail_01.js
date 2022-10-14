@@ -39,7 +39,7 @@ const init = () => {
     boxMesh.receiveShadow = true;
     scene.add(boxMesh);
 
-    const geometry1 = new THREE.BoxGeometry(60, 70, 1);
+    const geometry1 = new THREE.BoxGeometry(70, 55, 1);
     const loader = new THREE.TextureLoader();
 
     const material1 = new THREE.MeshBasicMaterial({map: loader.load("../../image/hw/hwimage01.png"),}),
@@ -75,7 +75,7 @@ const init = () => {
     }
 
     const infogeometry = new THREE.BoxGeometry(60, 40, 1);
-    const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swinfoimage01.png"),}),
+    const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/hw/hwinfoimage01.png"),}),
     info = new THREE.Mesh(infogeometry, infomaterial);
     info.position.set(-22, 42, -285);
     info.castShadow = true;
@@ -108,14 +108,14 @@ const init = () => {
 
     const fontLoader = new FontLoader();
     fontLoader.load("../../font/Do Hyeon_Regular.json", (font) => {
-        const geometry = new TextGeometry("오늘\n"+"뭐"+"먹지?", {
+        const geometry = new TextGeometry("레이싱휠", {
             font: font,
             size: 10,
             height: 1,
         });
         const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const font3d = new THREE.Mesh(geometry, material);
-        font3d.position.set(32,35,-300);
+        font3d.position.set(32,28,-300);
     
         font3d.castShadow = true;
         font3d.receiveShadow = true;

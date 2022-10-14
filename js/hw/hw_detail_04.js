@@ -7,6 +7,7 @@ let WIDTH = window.innerWidth;
 let HEIGHT = window.innerHeight;
 
 let scene, camera, renderer;
+let controls;
 
 let infogroup = new THREE.Group();
 
@@ -18,6 +19,7 @@ const init = () => {
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(WIDTH, HEIGHT);
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.shadowMap.enabled = true;
 
     // document.body.appendChild(renderer.domElement);
@@ -33,15 +35,18 @@ const init = () => {
     });
     const boxMesh = new THREE.Mesh(geometry, material);
     boxMesh.position.set(0, 0, 0);
+    boxMesh.castShadow = true;
     boxMesh.receiveShadow = true;
     scene.add(boxMesh);
 
-    const geometry1 = new THREE.BoxGeometry(60, 70, 1);
+    const geometry1 = new THREE.BoxGeometry(70, 55, 1);
     const loader = new THREE.TextureLoader();
 
     const material1 = new THREE.MeshBasicMaterial({map: loader.load("../../image/hw/hwimage04.png"),}),
     cube = new THREE.Mesh(geometry1, material1);
     cube.position.set(0, 45, -100);
+    cube.castShadow = true;
+    cube.receiveShadow = true;
     scene.add(cube);
     
     {
@@ -59,10 +64,6 @@ const init = () => {
 
         light.position.set(140, 360, 150);
 
-        // light.shadow.mapSize.width = 1024;
-        // light.shadow.mapSize.height = 1024;
-        // light.shadow.radius = 10;
-
         scene.add(light);
     }
     {
@@ -74,7 +75,7 @@ const init = () => {
     }
 
     const infogeometry = new THREE.BoxGeometry(60, 40, 1);
-    const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swinfoimage04.png"), outline:true}),
+    const infomaterial = new THREE.MeshBasicMaterial({map: loader.load("../../image/hw/hwinfoimage04.png"),}),
     info = new THREE.Mesh(infogeometry, infomaterial);
     info.position.set(-22, 42, -285);
     info.castShadow = true;
@@ -107,14 +108,14 @@ const init = () => {
 
     const fontLoader = new FontLoader();
     fontLoader.load("../../font/Do Hyeon_Regular.json", (font) => {
-        const geometry = new TextGeometry("길고양이\n지도AOS", {
+        const geometry = new TextGeometry("스마트화분\n관리시스템", {
             font: font,
             size: 9,
             height: 1,
         });
         const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const font3d = new THREE.Mesh(geometry, material);
-        font3d.position.set(32,35,-300);
+        font3d.position.set(30,35,-300);
     
         font3d.castShadow = true;
         font3d.receiveShadow = true;
@@ -125,18 +126,22 @@ const init = () => {
 
 const animate = () => {
     //controls.update();
-
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 };
 
 const stageResize = () => {
+    const canvas = renderer.domElement;
+	const width = canvas.clientWidth;
+	const height = canvas.clientHeight;
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
+    camera.aspect = WIDTH/ HEIGHT;
+    camera.updateProjectionMatrix();
 
-    renderer.setSize(WIDTH, HEIGHT);
-    camera.aspect = WIDTH / HEIGHT;
+    renderer.setSize(WIDTH, HEIGHT)
+    renderer.render(scene, camera);
     //카메라 비율을 화면 비율에 맞춘다
 };
 
@@ -149,6 +154,7 @@ const button = document.querySelector("button");
 let moveNum = 0;
 
 button.addEventListener("click", () => {
+    console.log(WIDTH, HEIGHT);
     if (camera.position.z == -240) {
         moveNum = -20;
     } else {
