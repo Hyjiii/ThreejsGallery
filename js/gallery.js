@@ -104,8 +104,8 @@ const init = () => {
     document.querySelector("#canvasWrap").appendChild(renderer.domElement);
     // document.body.appendChild(renderer.domElement);
 
-    const axes = new THREE.AxesHelper(150);
-    scene.add(axes);
+    // const axes = new THREE.AxesHelper(150);
+    // scene.add(axes);
 
     // const gridHelper = new THREE.GridHelper(240, 20);
     // scene.add(gridHelper);
