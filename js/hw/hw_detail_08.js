@@ -39,7 +39,7 @@ const init = () => {
     const geometry1 = new THREE.BoxGeometry(60, 70, 1);
     const loader = new THREE.TextureLoader();
 
-    const material1 = new THREE.MeshBasicMaterial({map: loader.load("../../image/sw/swimage07.png"),}),
+    const material1 = new THREE.MeshBasicMaterial({map: loader.load("../../image/hw/hwimage07.png"),}),
     cube = new THREE.Mesh(geometry1, material1);
     cube.position.set(0, 45, -100);
     scene.add(cube);

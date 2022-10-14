@@ -50,35 +50,35 @@ const hw_work = [
     },
     {
         image: "../image/hw/hwimage02.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage02.html",
     },
     {
         image: "../image/hw/hwimage03.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage03.html",
     },
     {
         image: "../image/hw/hwimage04.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage04.html",
     },
     {
         image: "../image/hw/hwimage05.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage05.html",
     },
     {
         image: "../image/hw/hwimage06.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage06.html",
     },
     {
         image: "../image/hw/hwimage07.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage07.html",
     },
     {
         image: "../image/hw/hwimage08.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage08.html",
     },
     {
         image: "../image/hw/hwimage09.png",
-        link: "http://google.com",
+        link: "../html/hw/hw_3Dimage09.html",
     },
 ];
 
