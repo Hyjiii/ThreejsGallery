@@ -18,73 +18,59 @@ let mouseX = 0,
     moveX = 0,
     moveY = 0;
 
-const dataArr = [
+const workArr = [
     {
-        image: "https://source.unsplash.com/collection/1",
-        link: "./popuplayter.html",
-
-        //html
+        image: "../image/hw/hwimage01.png",
     },
     {
-        image: "https://source.unsplash.com/collection/2",
-        // link: "./test.html",
+        image: "../image/hw/hwimage02.png",
     },
     {
-        image: "https://source.unsplash.com/collection/3",
-        // link: "./test.html",
+        image: "../image/hw/hwimage03.png",
     },
     {
-        image: "https://source.unsplash.com/collection/4",
-        // link: "./test.html",
+        image: "../image/hw/hwimage04.png",
     },
     {
-        image: "https://source.unsplash.com/collection/5",
-        // link: "./test.html",
+        image: "../image/hw/hwimage05.png",
     },
     {
-        image: "https://source.unsplash.com/collection/6",
-        // link: "./test.html",
+        image: "../image/hw/hwimage06.png",
     },
     {
-        image: "https://source.unsplash.com/collection/8",
-        // link: "./test.html",
+        image: "../image/hw/hwimage07.png",
     },
     {
-        image: "https://source.unsplash.com/collection/21",
-        // link: "./test.html",
+        image: "../image/hw/hwimage08.png",
     },
     {
-        image: "https://source.unsplash.com/collection/13",
-        // link: "./test.html",
+        image: "../image/hw/hwimage09.png",
     },
     {
-        image: "https://source.unsplash.com/collection/10",
-        // link: "./test.html",
+        image: "../image/sw/swimage01.png",
     },
     {
-        image: "https://source.unsplash.com/collection/11",
-        // link: "./test.html",
+        image: "../image/sw/swimage02-2.png",
     },
     {
-        image: "https://source.unsplash.com/collection/11",
-        // link: "./test.html",
+        image: "../image/sw/swimage03.png",
     },
     {
-        image: "https://source.unsplash.com/collection/12",
-        // link: "./test.html",
+        image: "../image/sw/swimage04.png",
     },
     {
-        image: "https://source.unsplash.com/collection/13",
-        // link: "./test.html",
+        image: "../image/sw/swimage05.png",
     },
     {
-        image: "https://source.unsplash.com/collection/14",
-        // link: "./test.html",
+        image: "../image/sw/swimage06.png",
+    },
+    {
+        image: "../image/sw/swimage07.png",
     },
 ];
 
 const init = () => {
-    totalNum = dataArr.length - 1; //전체 박스 갯수
+    totalNum = workArr.length - 1; //전체 박스 갯수
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color("#000000"); //배경 컬러 #6fbdff
@@ -149,15 +135,6 @@ const init = () => {
     const color = "#000000";
     scene.fog = new THREE.Fog(color, near, far);
 
-    // const axes = new THREE.AxesHelper(150);
-    // scene.add(axes);
-
-    // const gridHelper = new THREE.GridHelper(240, 20);
-    // scene.add(gridHelper);
-
-    // controls = new OrbitControls(camera, renderer.domElement);
-    {
-    }
     for (let i = 0; i <= totalNum; i++) {
         addBox(i);
     }
@@ -166,63 +143,22 @@ const init = () => {
 
 //박스 추가
 const addBox = (i) => {
-    const imageMap = new THREE.TextureLoader().load(dataArr[i].image);
+    const imageMap = new THREE.TextureLoader().load(workArr[i].image);
     imageMap.wrapS = THREE.RepeatWrapping;
     imageMap.wrapT = THREE.RepeatWrapping;
     // imageMap.repeat.set(1, 4);
 
     const material = new THREE.SpriteMaterial({ map: imageMap });
     const boxMesh = new THREE.Sprite(material);
-    boxMesh.scale.set(32, 18, 3);
+    boxMesh.scale.set(32, 24, 3);
 
     let x = Math.random() * 100 - 100 / 2;
     let y = Math.random() * 50 - 50 / 2;
     let z = -i * depthNum;
     boxMesh.position.set(x, y, z);
     boxMesh.name = `imageBox_${i}`;
-    boxMesh.link = dataArr[i].link;
     // boxMesh.rotation.set(0, y, 0);
     boxGroup.add(boxMesh);
-};
-
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
-
-const onPointerMove = (event) => {
-    pointer.x = (event.clientX / WIDTH) * 2 - 1;
-    pointer.y = -(event.clientY / HEIGHT) * 2 + 1;
-
-    raycaster.setFromCamera(pointer, camera);
-
-    // 레이저 닿는 녀석 찾기
-    const intersects = raycaster.intersectObjects(boxGroup.children);
-
-    // 마우스 오버가 된 녀석들은 빨간색으로
-    // for (let i = 0; i < intersects.length; i++) {
-    //     intersects[i].object.material.color.set(0xff0000);
-    // }
-
-    if (intersects.length > 0) {
-        document.querySelector("body").style.cursor = "pointer";
-    } else {
-        document.querySelector("body").style.cursor = "auto";
-    }
-};
-
-const onDocumentMouseDown = (event) => {
-    const vector = new THREE.Vector3(pointer.x, pointer.y, 0.5);
-
-    vector.unproject(camera);
-    raycaster.setFromCamera(pointer, camera);
-    const intersects = raycaster.intersectObjects(boxGroup.children);
-
-    if (intersects.length > 0) {
-        const item = intersects[0].object;
-        const itemName = item.name;
-        location.replace(item.link);
-        // window.open(item.link, "_blank");
-        // console.log(item.link);
-    }
 };
 
 const animate = () => {
@@ -291,6 +227,3 @@ window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 });
-
-window.addEventListener("pointermove", onPointerMove);
-window.addEventListener("mousedown", onDocumentMouseDown);
