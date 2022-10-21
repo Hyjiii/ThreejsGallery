@@ -21,51 +21,67 @@ let mouseX = 0,
 const workArr = [
     {
         image: "../image/hw/hwimage01.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage02.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage03.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage04.png",
+        link: "../html/hw/hw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage05.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage06.png",
+        link: "./html/hw/hw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage07.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage08.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/hw/hwimage09.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage01.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage02-2.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage03.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage04.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage05.png",
+        link: "../html/hw/hw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage06.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
     {
         image: "../image/sw/swimage07.png",
+        link: "../html/sw/sw_3Dimage01.html",
     },
 ];
 
@@ -94,7 +110,7 @@ const init = () => {
 
     scene.add(particle);
 
-    var geometry = new THREE.TetrahedronGeometry(1.2, 0);
+    var geometry = new THREE.TetrahedronGeometry(0.7, 0);
 
     var material = new THREE.MeshPhongMaterial({
         color: "#7e8f80",
@@ -144,9 +160,9 @@ const init = () => {
 //박스 추가
 const addBox = (i) => {
     const imageMap = new THREE.TextureLoader().load(workArr[i].image);
-    imageMap.wrapS = THREE.RepeatWrapping;
-    imageMap.wrapT = THREE.RepeatWrapping;
-    // imageMap.repeat.set(1, 4);
+    // imageMap.wrapS = THREE.RepeatWrapping;
+    // imageMap.wrapT = THREE.RepeatWrapping;
+    // // imageMap.repeat.set(1, 4);
 
     const material = new THREE.SpriteMaterial({ map: imageMap });
     const boxMesh = new THREE.Sprite(material);
@@ -157,8 +173,50 @@ const addBox = (i) => {
     let z = -i * depthNum;
     boxMesh.position.set(x, y, z);
     boxMesh.name = `imageBox_${i}`;
+    boxMesh.link = workArr[i].link;
+
     // boxMesh.rotation.set(0, y, 0);
+
     boxGroup.add(boxMesh);
+};
+
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+const onPointerMove = (event) => {
+    pointer.x = (event.clientX / WIDTH) * 2 - 1;
+    pointer.y = -(event.clientY / HEIGHT) * 2 + 1;
+
+    raycaster.setFromCamera(pointer, camera);
+
+    // 레이저 닿는 녀석 찾기
+    const intersects = raycaster.intersectObjects(boxGroup.children);
+
+    //마우스 오버가 된 녀석들은 빨간색으로
+    // for (let i = 0; i < intersects.length; i++) {
+    //     intersects[i].object.material.color.set(0xff0000);
+    // }
+
+    if (intersects.length > 0) {
+        document.querySelector("body").style.cursor = "pointer";
+    } else {
+        document.querySelector("body").style.cursor = "auto";
+    }
+};
+
+const onDocumentMouseDown = (event) => {
+    const vector = new THREE.Vector3(pointer.x, pointer.y, 0.5);
+
+    vector.unproject(camera);
+    raycaster.setFromCamera(pointer, camera);
+    const intersects = raycaster.intersectObjects(boxGroup.children);
+
+    if (intersects.length > 0) {
+        const item = intersects[0].object;
+        const itemName = item.name;
+        window.open(item.link, "_blank");
+        // console.log(item.link);
+    }
 };
 
 const animate = () => {
@@ -175,9 +233,9 @@ const animate = () => {
     boxGroup.position.x = -(moveX / 50);
     boxGroup.position.y = moveY / 50;
 
-    particle.rotation.x += 0.004;
-    particle.rotation.y += 0.004;
-    // particle.rotation.z += 0.004;
+    particle.rotation.x += 0.0046;
+    // particle.rotation.y += 0.004;
+    particle.rotation.z += 0.0046;
 
     renderer.clear();
 
@@ -227,3 +285,6 @@ window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 });
+
+window.addEventListener("pointermove", onPointerMove);
+window.addEventListener("mousedown", onDocumentMouseDown);

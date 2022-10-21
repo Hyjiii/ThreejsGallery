@@ -10,6 +10,7 @@ let HEIGHT = window.innerHeight;
 const distance = 130; //액자 사이 거리
 
 let scene, camera, renderer, controls, circle, skelet, particle;
+
 let galleryGroup = new THREE.Group();
 let galleryGroup2 = new THREE.Group();
 
@@ -135,20 +136,6 @@ const init = () => {
         );
         particle.add(mesh);
     }
-
-    // var ambientLight = new THREE.AmbientLight(0x999999);
-    // scene.add(ambientLight);
-
-    // var lights = [];
-    // lights[0] = new THREE.DirectionalLight("#c2bbc7", 1);
-    // lights[0].position.set(1, 0, 0);
-    // lights[1] = new THREE.DirectionalLight("#f5f2f3", 1);
-    // lights[1].position.set(0.75, 1, 0.5);
-    // lights[2] = new THREE.DirectionalLight("##969e9e", 1);
-    // lights[2].position.set(-0.75, -1, 0.5);
-    // scene.add(lights[0]);
-    // scene.add(lights[1]);
-    // scene.add(lights[2]);
 
     //조명 넣기
     var light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.45);
@@ -410,26 +397,31 @@ window.onpageshow = function (event) {
     }
 };
 
-const stageResize = () => {
-    WIDTH = window.innerWidth;
-    HEIGHT = window.innerHeight;
+const clock = new THREE.Clock();
 
-    camera.updateProjectionMatrix();
-    renderer.setSize(WIDTH, HEIGHT);
-    camera.aspect = WIDTH / HEIGHT;
-};
 const animate = () => {
-    controls.update();
+    // controls.update();
     particle.rotation.x += 0.003;
     particle.rotation.y += 0.002;
-    // camera.lookAt(scene.position);
+    // // camera.lookAt(scene.position);
+
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
 };
 
+const stageResize = () => {
+    WIDTH = window.innerWidth;
+    HEIGHT = window.innerHeight;
+
+    // camera.updateProjectionMatrix();
+    renderer.setSize(WIDTH, HEIGHT);
+    camera.aspect = WIDTH / HEIGHT;
+};
+
 init();
 animate();
 window.addEventListener("resize", stageResize);
+
 window.addEventListener("pointermove", onPointerMove);
 window.addEventListener("mousedown", onDocumentMouseDown);
